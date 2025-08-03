@@ -1,0 +1,5 @@
+LARGE
+https://archive.ics.uci.edu/dataset/389/devanagari+handwritten+character+dataset
+
+SMALL
+https://www.kaggle.com/datasets/ashokpant/devanagari-character-dataset
