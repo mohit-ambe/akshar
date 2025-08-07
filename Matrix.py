@@ -66,20 +66,21 @@ class Matrix():
 
         return sum
 
-    def __sub__(self, subtrahend):
-        return self.__add__(subtrahend * -1)
-
-    def __mul__(self, multi) -> "Matrix":
+    def __mul__(self, multi: (float, "Matrix")) -> "Matrix":
         """
         Multiplies two matrices, returning the product of
 
         self x multi.
+
+        Or multiply a matrix with a constant, returning
+
+        M[i][j] x multi for all i, j
         """
 
-        if type(multi) not in [Matrix, int]:
+        if type(multi) not in [Matrix, float, int]:
             raise TypeError(f"unable to perform * for types Matrix and {type(multi)}")
 
-        if type(multi) is int:
+        if type(multi) in [float, int]:
             product = Matrix(self.rows, self.cols)
             for mr in range(self.rows):
                 for mc in range(self.cols):
@@ -97,6 +98,12 @@ class Matrix():
                     raise TypeError("Matrix values must of type int/float")
 
         return product
+
+    def __sub__(self, subtrahend: list[list[int]]) -> "Matrix":
+        """
+        Subtracts two matrices.
+        """
+        return self.__add__(subtrahend.__mul__(-1))
 
     def __getitem__(self, key):
         return self.data.__getitem__(key)
