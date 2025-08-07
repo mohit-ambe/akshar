@@ -66,18 +66,28 @@ class Matrix():
 
         return sum
 
-    def __mul__(self, multi: list[list[int]]) -> "Matrix":
+    def __sub__(self, subtrahend):
+        return self.__add__(subtrahend * -1)
+
+    def __mul__(self, multi) -> "Matrix":
         """
         Multiplies two matrices, returning the product of
 
         self x multi.
         """
 
-        if type(multi) is not Matrix:
-            raise TypeError(f"unable to perform + for types Matrix and {type(multi)}")
+        if type(multi) not in [Matrix, int]:
+            raise TypeError(f"unable to perform * for types Matrix and {type(multi)}")
+
+        if type(multi) is int:
+            product = Matrix(self.rows, self.cols)
+            for mr in range(self.rows):
+                for mc in range(self.cols):
+                    product[mr][mc] = self.data[mr][mc] * multi
+            return product
+
         if self.cols != multi.rows:
             raise ValueError(f"Shape Mismatch: expected {self.cols} rows, received {multi.rows}")
-
         product = Matrix(self.rows, multi.cols)
         for mr in range(self.rows):
             for mc in range(multi.cols):
