@@ -45,7 +45,7 @@ class Matrix():
             else:
                 raise TypeError
 
-    def __add__(self, addend: list[list[int]]) -> "Matrix":
+    def __add__(self, addend: "Matrix") -> "Matrix":
         """
         Adds two matrices.
         """
@@ -104,6 +104,15 @@ class Matrix():
         Subtracts two matrices.
         """
         return self.__add__(subtrahend.__mul__(-1))
+
+    def apply(self, func) -> "Matrix":
+        """
+        Applies a function to all values
+        """
+        return Matrix([list(map(func, row)) for row in self.data])
+
+    def transpose(self) -> "Matrix":
+        return Matrix([list(r) for r in zip(*self.data)])
 
     def __getitem__(self, key):
         return self.data.__getitem__(key)
