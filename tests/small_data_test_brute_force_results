@@ -1,0 +1,24 @@
+200min, 200 epochs, 3240 trained, 65 tested, 95% acc
+
+
+
+Completed 10 epochs, 83.08% - 1.26s/epoch
+Completed 20 epochs, 86.15% - 1.03s/epoch
+Completed 30 epochs, 89.23% - 1.04s/epoch
+Completed 40 epochs, 89.23% - 1.03s/epoch
+Completed 50 epochs, 92.31% - 1.03s/epoch
+Completed 60 epochs, 92.31% - 1.03s/epoch
+Completed 70 epochs, 92.31% - 1.03s/epoch
+Completed 80 epochs, 92.31% - 1.03s/epoch
+Completed 90 epochs, 92.31% - 1.03s/epoch
+Completed 100 epochs, 92.31% - 1.03s/epoch
+Completed 110 epochs, 92.31% - 1.03s/epoch
+Completed 120 epochs, 92.31% - 1.03s/epoch
+Completed 130 epochs, 93.85% - 1.08s/epoch
+Completed 140 epochs, 95.38% - 1.03s/epoch
+Completed 150 epochs, 95.38% - 1.04s/epoch
+Completed 160 epochs, 95.38% - 1.04s/epoch
+Completed 170 epochs, 95.38% - 1.08s/epoch
+Completed 180 epochs, 95.38% - 1.07s/epoch
+Completed 190 epochs, 95.38% - 1.05s/epoch
+Completed 200 epochs, 95.38% - 1.09s/epoch
