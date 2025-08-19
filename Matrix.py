@@ -1,3 +1,6 @@
+from extension import mtrx
+
+
 class Matrix():
     """
     A Matrix class that can perform addition and multiplication operations.
@@ -47,7 +50,7 @@ class Matrix():
 
     def __add__(self, addend: "Matrix") -> "Matrix":
         """
-        Adds two matrices.
+        Adds two matrices using an extension library in C.
         """
 
         if type(addend) is not Matrix:
@@ -55,22 +58,17 @@ class Matrix():
         if self.rows != addend.rows or self.cols != addend.cols:
             raise ValueError(
                 f"Shape Mismatch: expected {(self.rows, self.cols)}, received {(addend.rows, addend.cols)}")
-
-        sum = Matrix(self.rows, self.cols)
-        for ar in range(self.rows):
-            for ac in range(self.cols):
-                x = addend.data[ar][ac]
-                if type(x) not in (int, float):
-                    raise TypeError("Matrix values must of type int/float")
-                sum.data[ar][ac] = self.data[ar][ac] + x
-
-        return sum
+        m1 = [_ for row in self.data for _ in row]
+        m2 = [_ for row in addend.data for _ in row]
+        matrix_sum = mtrx.add(m1, m2)
+        matrix_sum = [matrix_sum[i:i + self.cols] for i in range(0, len(matrix_sum), self.cols)]
+        return Matrix(matrix_sum)
 
     def __mul__(self, multi: (float, "Matrix")) -> "Matrix":
         """
         Multiplies two matrices, returning the product of
 
-        self x multi.
+        self x multi using an extension library in C.
 
         Or multiply a matrix with a constant, returning
 
@@ -81,27 +79,20 @@ class Matrix():
             raise TypeError(f"unable to perform * for types Matrix and {type(multi)}")
 
         if type(multi) in [float, int]:
-            product = Matrix(self.rows, self.cols)
-            for mr in range(self.rows):
-                for mc in range(self.cols):
-                    product[mr][mc] = self.data[mr][mc] * multi
-            return product
+            m = [_ for row in self.data for _ in row]
+            product = mtrx.scalar_multiply(m, multi)
+            product = [product[i:i + self.cols] for i in range(0, len(product), self.cols)]
+            return Matrix(product)
+        elif type(multi) is Matrix:
+            m1 = [_ for row in self.data for _ in row]
+            m2 = [_ for row in multi.data for _ in row]
+            product = mtrx.matrix_multiply(self.rows, self.cols, multi.rows, multi.cols, m1, m2)
+            product = [product[i:i + multi.cols] for i in range(0, len(product), multi.cols)]
+            return Matrix(product)
 
-        if self.cols != multi.rows:
-            raise ValueError(f"Shape Mismatch: expected {self.cols} rows, received {multi.rows}")
-        product = Matrix(self.rows, multi.cols)
-        for mr in range(self.rows):
-            for mc in range(multi.cols):
-                try:
-                    product[mr][mc] = self.dot(self.row(mr), multi.col(mc))
-                except TypeError:
-                    raise TypeError("Matrix values must of type int/float")
-
-        return product
-
-    def __sub__(self, subtrahend: list[list[int]]) -> "Matrix":
+    def __sub__(self, subtrahend: "Matrix") -> "Matrix":
         """
-        Subtracts two matrices.
+        Subtracts two matrices using an extension library in C.
         """
         return self.__add__(subtrahend.__mul__(-1))
 
@@ -112,7 +103,13 @@ class Matrix():
         return Matrix([list(map(func, row)) for row in self.data])
 
     def transpose(self) -> "Matrix":
-        return Matrix([list(r) for r in zip(*self.data)])
+        """
+        Transpose the matrix using an extension library in C
+        """
+        m = [_ for row in self.data for _ in row]
+        product = mtrx.transpose(self.rows, self.cols, m)
+        product = [product[i:i + self.rows] for i in range(0, len(product), self.rows)]
+        return Matrix(product)
 
     def __getitem__(self, key):
         return self.data.__getitem__(key)
