@@ -1,4 +1,4 @@
-from extension import mtrx
+from c_extension import mtrx
 
 
 class Matrix():
