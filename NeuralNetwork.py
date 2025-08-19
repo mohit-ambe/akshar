@@ -75,13 +75,8 @@ class NeuralNetwork:
     Customize by layer structure, learn rate, and random seed.
     """
 
-    def __init__(self, inputs: int,
-                 outputs: int,
-                 layer_sizes: list[int],
-                 loss=Loss.sse,
-                 activation=Activation.sigmoid,
-                 learn_rate=0.01,
-                 random_seed=1):
+    def __init__(self, inputs: int, outputs: int, layer_sizes: list[int], loss=Loss.sse, activation=Activation.sigmoid,
+                 learn_rate=0.01, random_seed=1):
 
         self.weights = []
         self.biases = []
@@ -107,11 +102,6 @@ class NeuralNetwork:
         Return its layer nodes,
         both before and after activation.
         """
-
-        data = []
-        for d in datapoint[:]:
-            data += [[x] for x in d]
-        datapoint = Matrix(data)
 
         activations = [datapoint]
         responses = [datapoint]
