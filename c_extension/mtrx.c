@@ -6,7 +6,7 @@
 
 static double* matrix_mul(int m1r, int m1c, int m2r, int m2c, double* m1, double* m2) {
     double* product = (double*)PyMem_Calloc(m1r * m2c, sizeof(double));
-    int vector_length = (m1c + m2r) / 2;
+    int vector_length = m1c;
 
     for (int i = 0; i < m1r; i++) {
         for (int j = 0; j < m2c; j++) {
