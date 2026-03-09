@@ -1,4 +1,6 @@
-# akshar [open in streamlit](https://akshar-mohit-ambe.streamlit.app/)
+# akshar
+
+[(open in streamlit)](https://akshar-mohit-ambe.streamlit.app/)
 
 ## Hindi Character Recognition from Scratch
 
